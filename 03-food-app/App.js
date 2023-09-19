@@ -7,6 +7,9 @@ import MealsOverviewScreen from './screens/MealsOverviewScreen'
 import MealDetailScreen from './screens/MealDetailScreen'
 import FavoriteScreen from './screens/FavoriteScreen'
 import { Ionicons } from '@expo/vector-icons'
+import FavoriteContextProvider from './store/context/favorites-context'
+// import { Provider } from 'react-redux'
+// import { store } from './store/redux/store'
 
 const stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -51,41 +54,45 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: '#351401' },
-            headerTintColor: 'white',
-            contentStyle: { backgroundColor: '#3f2f25' },
-            headerBackTitleVisible: false,
-          }}
-        >
-          <stack.Screen
-            name="MealsCategories"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      {/* <Provider store={store}> */}
+      <FavoriteContextProvider>
+        <NavigationContainer>
+          <stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: '#351401' },
+              headerTintColor: 'white',
+              contentStyle: { backgroundColor: '#3f2f25' },
+              headerBackTitleVisible: false,
             }}
-          />
-          <stack.Screen
-            name="MealsOverview"
-            component={MealsOverviewScreen}
-            /* options={({ route, navigation }) => {
+          >
+            <stack.Screen
+              name="MealsCategories"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <stack.Screen
+              name="MealsOverview"
+              component={MealsOverviewScreen}
+              /* options={({ route, navigation }) => {
             //   const catId = route.params.categoryId
             //   return {
             //     title: catId,
             //   }
              }}*/
-          />
-          <stack.Screen
-            name="MealDetail"
-            component={MealDetailScreen}
-            options={{
-              title: 'About meal',
-            }}
-          />
-        </stack.Navigator>
-      </NavigationContainer>
+            />
+            <stack.Screen
+              name="MealDetail"
+              component={MealDetailScreen}
+              options={{
+                title: 'About meal',
+              }}
+            />
+          </stack.Navigator>
+        </NavigationContainer>
+      </FavoriteContextProvider>
+      {/* </Provider> */}
     </>
   )
 }
